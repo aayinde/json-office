@@ -1,0 +1,21 @@
+{
+    "name": "aayinde/json-office",
+    "description": "Modern & Simplified Json Reader and Writer",
+    "type": "library",
+    "require-dev": {
+        "phpstan/phpstan-phpunit": "^1.1",
+        "phpunit/phpunit": "^9"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Aayinde\\JsonOffice\\": "Aayinde/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abdulbasit Aliyu"
+        }
+    ],
+    "minimum-stability": "stable"
+}
