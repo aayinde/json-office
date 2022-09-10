@@ -9,7 +9,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Aayinde\\JsonOffice\\": "Aayinde/"
+            "Aayinde\\JsonOffice\\": "src/JsonOffice"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Aayinde\\JsonOfficeTest\\": "tests/JsonOfficeTest"
         }
     },
     "authors": [
@@ -17,5 +22,8 @@
             "name": "Abdulbasit Aliyu"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require": {
+        "josantonius/file": "^1.1"
+    }
 }
