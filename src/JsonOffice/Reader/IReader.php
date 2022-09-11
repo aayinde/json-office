@@ -10,12 +10,11 @@ interface IReader
 {
 
     /**
-     * 
      */
     public function process(): void;
 
     /**
-     * 
      */
+    // @phpstan-ignore-next-line
     public function result();
 }

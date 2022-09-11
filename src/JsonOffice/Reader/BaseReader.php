@@ -85,12 +85,24 @@ abstract class BaseReader
 
     /**
      *
-     * @param string $properties
+     * @var int
+     */
+    protected ?int $throwExceptionCode = null;
+
+    /**
+     *
+     * @var string
+     */
+    protected ?string $throwExceptionMessage = null;
+
+    /**
+     *
+     * @param string $readerInput
      * @return self
      */
-    public function setReaderProperties(string $properties): self
+    public function setReader(string $readerInput): self
     {
-        $this->reader = $properties;
+        $this->reader = $readerInput;
         return $this;
     }
 
@@ -129,12 +141,11 @@ abstract class BaseReader
 
     /**
      *
-     * @param bool $throwException
      * @return self
      */
-    public function setThrowException(bool $throwException = false): self
+    public function useThrowException(): self
     {
-        $this->throwException = $throwException;
+        $this->throwException = true;
         return $this;
     }
 
@@ -166,7 +177,7 @@ abstract class BaseReader
      *
      * @return string|NULL
      */
-    public function getReaderProperties(): ?string
+    public function getReader(): ?string
     {
         return $this->reader;
     }
@@ -200,11 +211,16 @@ abstract class BaseReader
 
     /**
      *
-     * @return bool
+     * @return string
      */
-    public function getThrowException(): bool
+    public function getThrowExceptionMessage(): ?string
     {
-        return $this->throwException;
+        return $this->throwExceptionMessage;
+    }
+
+    public function getThrowExceptionCode(): ?int
+    {
+        return $this->throwExceptionCode;
     }
 
     /**

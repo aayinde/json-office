@@ -22,8 +22,5 @@
             "name": "Abdulbasit Aliyu"
         }
     ],
-    "minimum-stability": "stable",
-    "require": {
-        "josantonius/file": "^1.1"
-    }
+    "minimum-stability": "stable"
 }

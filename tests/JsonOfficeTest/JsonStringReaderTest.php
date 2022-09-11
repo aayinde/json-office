@@ -2,11 +2,12 @@
 namespace tests\JsonOfficeTest;
 
 use Aayinde\JsonOffice\Decorator\ReaderDecorator;
-use Aayinde\JsonOffice\Reader\JsonStringReader;
-use PHPUnit\Framework\TestCase;
 use Aayinde\JsonOffice\Decorator\ReaderFlag;
 use Aayinde\JsonOffice\Decorator\ReaderHelper;
 use Aayinde\JsonOffice\Decorator\ReaderLang;
+use Aayinde\JsonOffice\Reader\JsonStringReader;
+use Aayinde\JsonOffice\Reader\ReaderException;
+use PHPUnit\Framework\TestCase;
 
 final class JsonStringReaderTest extends TestCase
 {
@@ -21,8 +22,8 @@ final class JsonStringReaderTest extends TestCase
     public function testReaderPropertiesSetter(): void
     {
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-        $this->objJsonReader->setReaderProperties($json);
-        $this->assertEquals($json, $this->objJsonReader->getReaderProperties());
+        $this->objJsonReader->setReader($json);
+        $this->assertEquals($json, $this->objJsonReader->getReader());
     }
 
     public function testReaderReturnType()
@@ -67,10 +68,14 @@ final class JsonStringReaderTest extends TestCase
         $this->assertEquals(ReaderFlag::InvalidUtf8Substitute(), $this->objJsonReader->getUseInvalidUtf8Substitute());
     }
 
-    public function testSetThrowException()
+    public function testSetThrowExceptionForDepth()
     {
-        $this->objJsonReader->setThrowException(true);
-        $this->assertEquals(true, $this->objJsonReader->getThrowException());
+        $this->expectException(ReaderException::class);
+        $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
+        $this->objJsonReader->setReader($json);
+        $this->objJsonReader->useThrowException()
+        ->setReaderDepth(8888999988898)
+            ->process();
     }
 
     public function testSetReaderDepth()
@@ -103,7 +108,7 @@ final class JsonStringReaderTest extends TestCase
     public function testProcessReturnObject()
     {
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-        $this->objJsonReader->setReaderProperties($json)
+        $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsObject())
             ->process();
         $this->assertIsObject($this->objJsonReader->result());
@@ -112,7 +117,7 @@ final class JsonStringReaderTest extends TestCase
     public function testProcessReturnArray()
     {
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-        $this->objJsonReader->setReaderProperties($json)
+        $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAssociateArray())
             ->process();
         $this->assertIsArray($this->objJsonReader->result());
@@ -121,16 +126,16 @@ final class JsonStringReaderTest extends TestCase
     public function testProcessReturnAuto()
     {
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-        $this->objJsonReader->setReaderProperties($json)
+        $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->process();
-        $this->assertIsObject($this->objJsonReader->result()) || $this->assertIsObject($this->objJsonReader->result());
+        $this->assertIsObject($this->objJsonReader->result());
     }
 
     public function testProcessReturnAutoWithReturnAsArrayFlag()
     {
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-        $this->objJsonReader->setReaderProperties($json)
+        $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
             ->process();
@@ -140,7 +145,7 @@ final class JsonStringReaderTest extends TestCase
     public function testProcessWithInvalidDepth()
     {
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
-        $this->objJsonReader->setReaderProperties($json)
+        $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->setReaderDepth(8898889888898)
             ->useObjectAsArray()
@@ -151,7 +156,7 @@ final class JsonStringReaderTest extends TestCase
     public function testProcessWithInvalidJsonInput()
     {
         $json = "{'Organization': 'PHP Documentation Team'}";
-        $this->objJsonReader->setReaderProperties($json)
+        $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
             ->process();

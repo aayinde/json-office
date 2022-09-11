@@ -15,6 +15,14 @@ class ReaderHelper
      */
     private static int $maximumDepthAllowed = 2147483647;
 
+    private static string $fileExtension = 'json';
+
+    /**
+     *
+     * @var string
+     */
+    public static ?string $fileContent = null;
+
     /**
      *
      * @param string $string
@@ -37,6 +45,37 @@ class ReaderHelper
     public static function validateDepth(?int $depth): bool
     {
         return $depth > 0 && $depth <= self::$maximumDepthAllowed ? false : true;
+    }
+
+    /**
+     *
+     * @param string $filename
+     * @return bool
+     */
+    public static function isFileValid(?string $filename): bool
+    {
+
+        // @phpstan-ignore-next-line
+        return file_exists($filename) && is_file($filename) && (pathinfo($filename, PATHINFO_EXTENSION) === self::$fileExtension) ? true : false;
+    }
+
+    /**
+     *
+     * @param string $filename
+     * @return bool|NULL
+     *
+     */
+    public static function parserFileContent(?string $filename): ?bool
+    {
+        /**
+         *
+         * @phpstan-ignore-next-line
+         */
+        self::$fileContent = file_get_contents($filename);
+        if (! empty(self::$fileContent)) {
+            return true;
+        }
+        return false;
     }
 }
 
