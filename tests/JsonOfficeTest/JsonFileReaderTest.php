@@ -1,13 +1,13 @@
 <?php
 namespace tests\JsonOfficeTest;
 
-use PHPUnit\Framework\TestCase;
-use Aayinde\JsonOffice\Decorator\ReaderDecorator;
-use Aayinde\JsonOffice\Decorator\ReaderFlag;
-use Aayinde\JsonOffice\Decorator\ReaderHelper;
-use Aayinde\JsonOffice\Decorator\ReaderLang;
+use Aayinde\JsonOffice\Decorator\Reader\ReaderDecorator;
+use Aayinde\JsonOffice\Decorator\Reader\ReaderFlag;
+use Aayinde\JsonOffice\Decorator\Reader\ReaderHelper;
 use Aayinde\JsonOffice\Reader\JsonFileReader;
 use Aayinde\JsonOffice\Reader\ReaderException;
+use PHPUnit\Framework\TestCase;
+use Aayinde\JsonOffice\Decorator\JsonOfficeLang;
 
 /**
  * JsonFileReader test case.
@@ -93,7 +93,7 @@ class JsonFileReaderTest extends TestCase
         $this->expectException(ReaderException::class);
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
         $this->jsonFileReader->setReader($json);
-        $this->jsonFileReader->useThrowException()
+        $this->jsonFileReader->useThrowException(true)
         ->setReaderDepth(8888999988898)
         ->process();
     }
@@ -106,17 +106,17 @@ class JsonFileReaderTest extends TestCase
 
     public function testIsFileValid()
     {
-        $this->assertTrue(\Aayinde\JsonOffice\Decorator\ReaderHelper::isFileValid($this->inputFile));
+        $this->assertTrue(ReaderHelper::isFileValid($this->inputFile));
     }
 
     public function testFileIsNotValid()
     {
-        $this->assertFalse(\Aayinde\JsonOffice\Decorator\ReaderHelper::isFileValid($this->inputFileTwo));
+        $this->assertFalse(ReaderHelper::isFileValid($this->inputFileTwo));
     }
 
     public function testFileParsingIsTrue()
     {
-        $this->assertTrue(\Aayinde\JsonOffice\Decorator\ReaderHelper::parserFileContent($this->inputFile));
+        $this->assertTrue(ReaderHelper::parserFileContent($this->inputFile));
     }
 
     public function testReaderHelperValidateDepth()
@@ -180,7 +180,7 @@ class JsonFileReaderTest extends TestCase
             ->useObjectAsArray()
             ->setReaderDepth(88888888988)
             ->process();
-        $this->assertEquals(ReaderLang::$maximumNestingExceeded, $this->jsonFileReader->getErrorMessage()) && $this->assertTrue($this->jsonFileReader->isError());
+        $this->assertEquals(JsonOfficeLang::$maximumNestingExceeded, $this->jsonFileReader->getErrorMessage()) && $this->assertTrue($this->jsonFileReader->isError());
     }
 
     public function testProcessWithInvalidJsonInput()
@@ -189,7 +189,7 @@ class JsonFileReaderTest extends TestCase
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
             ->process();
-        $this->assertEquals(ReaderLang::$invalidJsonInput, $this->jsonFileReader->getErrorMessage()) && $this->assertTrue($this->jsonFileReader->isError());
+        $this->assertEquals(JsonOfficeLang::$invalidJsonInput, $this->jsonFileReader->getErrorMessage()) && $this->assertTrue($this->jsonFileReader->isError());
     }
 }
 

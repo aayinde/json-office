@@ -1,16 +1,24 @@
 <?php
+
 namespace Aayinde\JsonOffice\Exception;
 
 /**
  *
  * @author aaliyu
- *        
+ *
  */
-class JsonErrorHelper
+class JsonOfficeErrorHelper
 {
-
+    /**
+     * @var string
+     */
     private static string $errorMessage = '';
 
+    /**
+     * This function parses the error code and returns the exception's meaning.
+     * @param int $error
+     * @return string
+     */
     public static function getJsonError(?int $error): string
     {
         switch ($error) {

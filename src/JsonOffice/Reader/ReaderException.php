@@ -1,13 +1,16 @@
 <?php
+
 namespace Aayinde\JsonOffice\Reader;
 
-use Aayinde\JsonOffice\Exception\JsonException;
+use Aayinde\JsonOffice\Exception\JsonOfficeException;
 
 /**
+ * Class for Throwing Exceptions
  *
- * @author aaliyu
- *        
+ * @author Abdulbasit Aliyu <ayindealiyu1@gmail.com>
+ * @copyright 2022 (c) Abdulbasit Aliyu
+ *
  */
-class ReaderException extends JsonException
+class ReaderException extends JsonOfficeException
 {
 }

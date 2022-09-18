@@ -1,13 +1,13 @@
 <?php
 namespace tests\JsonOfficeTest;
 
-use Aayinde\JsonOffice\Decorator\ReaderDecorator;
-use Aayinde\JsonOffice\Decorator\ReaderFlag;
-use Aayinde\JsonOffice\Decorator\ReaderHelper;
-use Aayinde\JsonOffice\Decorator\ReaderLang;
+use Aayinde\JsonOffice\Decorator\Reader\ReaderDecorator;
+use Aayinde\JsonOffice\Decorator\Reader\ReaderFlag;
+use Aayinde\JsonOffice\Decorator\Reader\ReaderHelper;
 use Aayinde\JsonOffice\Reader\JsonStringReader;
 use Aayinde\JsonOffice\Reader\ReaderException;
 use PHPUnit\Framework\TestCase;
+use Aayinde\JsonOffice\Decorator\JsonOfficeLang;
 
 final class JsonStringReaderTest extends TestCase
 {
@@ -73,8 +73,8 @@ final class JsonStringReaderTest extends TestCase
         $this->expectException(ReaderException::class);
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
         $this->objJsonReader->setReader($json);
-        $this->objJsonReader->useThrowException()
-        ->setReaderDepth(8888999988898)
+        $this->objJsonReader->useThrowException(true)
+            ->setReaderDepth(8888999988898)
             ->process();
     }
 
@@ -150,7 +150,7 @@ final class JsonStringReaderTest extends TestCase
             ->setReaderDepth(8898889888898)
             ->useObjectAsArray()
             ->process();
-        $this->assertEquals(ReaderLang::$maximumNestingExceeded, $this->objJsonReader->getErrorMessage());
+        $this->assertEquals(JsonOfficeLang::$maximumNestingExceeded, $this->objJsonReader->getErrorMessage());
     }
 
     public function testProcessWithInvalidJsonInput()
@@ -160,7 +160,7 @@ final class JsonStringReaderTest extends TestCase
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
             ->process();
-        $this->assertEquals(ReaderLang::$invalidJsonInput, $this->objJsonReader->getErrorMessage());
+        $this->assertEquals(JsonOfficeLang::$invalidJsonInput, $this->objJsonReader->getErrorMessage());
     }
 }
 

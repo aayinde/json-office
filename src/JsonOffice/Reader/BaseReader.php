@@ -1,59 +1,64 @@
 <?php
 namespace Aayinde\JsonOffice\Reader;
 
-use Aayinde\JsonOffice\Decorator\ReaderFlag;
+use Aayinde\JsonOffice\Decorator\Reader\ReaderFlag;
 
 /**
+ * The base class for all json readers.
+ * The class provides all of the
+ * necessary methods and properties for inheriting.
  *
- * @author aaliyu
- *        
+ * @author Abdulbasit Aliyu <ayindealiyu1@gmail.com>
+ * @copyright 2022 (c) Abdulbasit Aliyu
+ *           
  */
-abstract class BaseReader
+abstract class BaseReader implements IReader
 {
 
     /**
+     * The current source
      *
      * @var string
      */
     protected ?string $reader = null;
 
     /**
+     * The Input return Type
      *
      * @var bool
      */
     protected ?bool $returnType = null;
 
     /**
+     * The Input Depth
      *
      * @var integer
      */
     protected ?int $readerDepth = 512;
 
     /**
-     *
-     * @var array<int>
-     */
-    protected ?array $readerFlag = [];
-
-    /**
+     * The Error Message data
      *
      * @var string
      */
     protected string $error = '';
 
     /**
+     * The final result
      *
      * @var mixed
      */
     protected $output = null;
 
     /**
+     * For tossing Exceptions.
      *
      * @var boolean
      */
     protected bool $throwException = false;
 
     /**
+     * Store the Response error status
      *
      * @var boolean
      */
@@ -84,18 +89,21 @@ abstract class BaseReader
     protected ?int $invalidUtf8Substitute = null;
 
     /**
+     * The code for the thrown exception
      *
      * @var int
      */
     protected ?int $throwExceptionCode = null;
 
     /**
+     * The message that follows the exception is toss
      *
      * @var string
      */
     protected ?string $throwExceptionMessage = null;
 
     /**
+     * Set the Input
      *
      * @param string $readerInput
      * @return self
@@ -107,6 +115,7 @@ abstract class BaseReader
     }
 
     /**
+     * Set the Return Type
      *
      * @param bool $returnType
      * @return self
@@ -118,6 +127,7 @@ abstract class BaseReader
     }
 
     /**
+     * Set the Depth
      *
      * @param int $readerDepth
      * @return self
@@ -129,44 +139,55 @@ abstract class BaseReader
     }
 
     /**
+     * Set the use of Exceptions
      *
-     * @param array<int> $flag
+     * @param bool $set
      * @return self
      */
-    public function setReaderFlags(?array $flag): self
+    public function useThrowException(bool $set = false): self
     {
-        $this->readerFlag = $flag;
+        $this->throwException = $set;
         return $this;
     }
 
     /**
+     * Set the constants
      *
      * @return self
      */
-    public function useThrowException(): self
-    {
-        $this->throwException = true;
-        return $this;
-    }
-
     public function useBigIntAsString(): self
     {
         $this->bigIntAsString = ReaderFlag::useBigIntAsString();
         return $this;
     }
 
+    /**
+     * Set the constants
+     *
+     * @return self
+     */
     public function useObjectAsArray(): self
     {
         $this->objectAsArray = ReaderFlag::useObjectAsArray();
         return $this;
     }
 
+    /**
+     * Set the constants
+     *
+     * @return self
+     */
     public function useIgnoreInvalidUtf8(): self
     {
         $this->ignoreInvalidUtf8 = ReaderFlag::ignoreInvalidUtf8();
         return $this;
     }
 
+    /**
+     * Set the constants
+     *
+     * @return self
+     */
     public function useInvalidUtf8Substitute(): self
     {
         $this->invalidUtf8Substitute = ReaderFlag::InvalidUtf8Substitute();
@@ -174,6 +195,7 @@ abstract class BaseReader
     }
 
     /**
+     * Get the Input
      *
      * @return string|NULL
      */
@@ -183,6 +205,7 @@ abstract class BaseReader
     }
 
     /**
+     * Get the Return Type
      *
      * @return bool|NULL
      */
@@ -192,6 +215,7 @@ abstract class BaseReader
     }
 
     /**
+     * Get the depth
      *
      * @return int|NULL
      */
@@ -201,15 +225,7 @@ abstract class BaseReader
     }
 
     /**
-     *
-     * @return array<int>|NULL
-     */
-    public function getReaderFlags(): ?array
-    {
-        return $this->readerFlag;
-    }
-
-    /**
+     * Get the Error Message Throw
      *
      * @return string
      */
@@ -218,12 +234,18 @@ abstract class BaseReader
         return $this->throwExceptionMessage;
     }
 
+    /**
+     * Get the Error Code
+     *
+     * @return int|NULL
+     */
     public function getThrowExceptionCode(): ?int
     {
         return $this->throwExceptionCode;
     }
 
     /**
+     * Returns bool value.
      *
      * @return bool
      */
@@ -233,6 +255,7 @@ abstract class BaseReader
     }
 
     /**
+     * Get the Error Message without the Exception
      *
      * @return string
      */
@@ -241,21 +264,41 @@ abstract class BaseReader
         return $this->error;
     }
 
+    /**
+     * Return the Value
+     *
+     * @return int|NULL
+     */
     public function getUseBigIntAsString(): ?int
     {
         return $this->bigIntAsString;
     }
 
+    /**
+     * Return the Value
+     *
+     * @return int|NULL
+     */
     public function getUseObjectAsArray(): ?int
     {
         return $this->objectAsArray;
     }
 
+    /**
+     * Return the Value
+     *
+     * @return int|NULL
+     */
     public function getUseIgnoreInvalidUtf8(): ?int
     {
         return $this->ignoreInvalidUtf8;
     }
 
+    /**
+     * Return the Value
+     *
+     * @return int|NULL
+     */
     public function getUseInvalidUtf8Substitute(): ?int
     {
         return $this->invalidUtf8Substitute;
