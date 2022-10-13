@@ -1,26 +1,53 @@
 {
-    "name": "aayinde/json-office",
-    "description": "Modern & Simplified Json Reader and Writer",
-    "type": "library",
-    "require-dev": {
-        "phpstan/phpstan-phpunit": "^1.1",
-        "phpunit/phpunit": "^9"
-    },
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Aayinde\\JsonOffice\\": "src/JsonOffice"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Aayinde\\JsonOfficeTest\\": "tests/JsonOfficeTest"
-        }
-    },
-    "authors": [
-        {
-            "name": "Abdulbasit Aliyu"
-        }
-    ],
-    "minimum-stability": "stable"
+  "name": "aayinde/json-office",
+  "description": "Modern & Simplified Json Reader and Writer",
+  "type": "library",
+  "keywords": [
+    "json",
+    "php",
+    "library",
+    "office",
+    "writer",
+    "reader",
+    "file",
+    "array"
+  ],
+  "require-dev": {
+    "phpstan/phpstan-phpunit": "^1.1",
+    "phpunit/phpunit": "^9"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Aayinde\\JsonOffice\\": "src/JsonOffice"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Aayinde\\JsonOfficeTest\\": "tests/JsonOfficeTest"
+    }
+  },
+  "authors": [
+    {
+      "name": "Abdulbasit Aliyu"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "test": [
+      "phpstan analyse",
+      "phpunit --testdox --colors=always",
+      "phpcs -p src"
+    ]
+  },
+  "support": {
+    "issues": "https://github.com/aayinde/json-office/issues",
+    "source": "https://github.com/aayinde/json-office"
+  },
+  "config": {
+    "allow-plugins": {
+      "phpdocumentor/unified-asset-installer": true
+    }
+  }
 }
