@@ -37,7 +37,7 @@
   "scripts": {
     "test": [
       "phpstan analyse -l 9 src",
-      "phpunit --testdox --colors=always",
+      "phpunit --testdox --colors=always src",
       "phpcs -p src"
     ]
   },
