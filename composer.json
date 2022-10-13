@@ -36,7 +36,7 @@
   "prefer-stable": true,
   "scripts": {
     "test": [
-      "phpstan analyse",
+      "phpstan analyse src",
       "phpunit --testdox --colors=always",
       "phpcs -p src"
     ]
