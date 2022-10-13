@@ -188,7 +188,7 @@ class JsonWriterTest extends TestCase
         $ds = DIRECTORY_SEPARATOR;
         $dir = $fileDirPath . $ds . "jsonfiles" . $ds;
         $this->jsonWriter->setInput($this->input)
-            ->saveToFile("test_array3")
+            ->saveToFile("test_array2")
             ->process();
         $this->assertFileExists("test_array2.json") && $this->assertTrue($this->jsonWriter->getOutput());
     }
