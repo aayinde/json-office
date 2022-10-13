@@ -14,7 +14,8 @@
   ],
   "require-dev": {
     "phpstan/phpstan-phpunit": "^1.1",
-    "phpunit/phpunit": "^9"
+    "phpunit/phpunit": "^9",
+    "friendsofphp/php-cs-fixer": "^3.12"
   },
   "license": "MIT",
   "autoload": {
@@ -38,7 +39,7 @@
     "test": [
       "phpstan analyse -l 9 src",
       "phpunit --testdox --colors=always src",
-      "phpcs -p src"
+      "php-cs-fixer fix --diff --dry-run src"
     ]
   },
   "support": {
