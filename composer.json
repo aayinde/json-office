@@ -37,9 +37,7 @@
   "prefer-stable": true,
   "scripts": {
     "test": [
-      "phpstan analyse -l 9 src",
-      "phpunit --testdox --colors=always src",
-      "php-cs-fixer fix --diff --dry-run src"
+      "phpunit --testdox --colors=always src"
     ]
   },
   "support": {
