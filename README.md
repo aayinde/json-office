@@ -88,7 +88,7 @@ test.json
 # Additional Parameters
 #### Pretty Output
 
-#usage
+# usage
 
 ```
 <?php
@@ -136,7 +136,7 @@ $objJsonWriter->getInstanceJsonWriter()
 }
 ```
 
-##Additional Methods
+## Additional Methods
 
 #### ->useToPrettyPrint()
 #### ->useConvertAmpsToHexValue()
@@ -153,10 +153,10 @@ $objJsonWriter->getInstanceJsonWriter()
 
 
 
-#JsonReader
+# JsonReader
 
 
-####JsonFileReader
+#### JsonFileReader
 Read a Json file
 
 ```
@@ -168,7 +168,7 @@ $objJsonReader->getInstanceJsonFileReader()
     ->setReader("test.json")
     ->result();
 ```
-###Output
+### Output
 
 ```
 object(stdClass)[75]
@@ -210,10 +210,10 @@ object(stdClass)[75]
 
 
 
-####JsonStringReader
+#### JsonStringReader
 Read a Json String
 
-###Usage
+### Usage
 
 ```
 <?php
@@ -224,13 +224,13 @@ $objJsonReader->getInstanceJsonStringReader()
     ->result();
 ```
 
-###Input
+### Input
 
 ```
 {"default":{"config":{"host":"localhost","port":3306,"username":"root","password":"root","schema":"test","prefix":"test","socket":null,"engine":"InnoDB","charset":"utf8mb4","collation":"utf8mb4_general_ci","timezone":"+00:00","ssl":{"enabled":false,"verify":true,"key":null,"cert":null,"ca":null,"capath":null,"cipher":null},"failover":[],"options":{"0":10,"201":true,"8":1},"report":251},"logger_instance":"default"}}
 ```
 
-###Output
+### Output
 
 ```
 object(stdClass)[75]
@@ -271,7 +271,7 @@ object(stdClass)[75]
       
 ```
 
-##Additional Methods
+## Additional Methods
 
 #### ->useObjectAsArray()
 #### ->useBigIntAsString()
