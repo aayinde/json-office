@@ -75,7 +75,7 @@ final class JsonStringReaderTest extends TestCase
         $this->objJsonReader->setReader($json);
         $this->objJsonReader->useThrowException(true)
             ->setReaderDepth(8888999988898)
-            ->process();
+            ->result();
     }
 
     public function testSetReaderDepth()
@@ -110,7 +110,7 @@ final class JsonStringReaderTest extends TestCase
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
         $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsObject())
-            ->process();
+            ->result();
         $this->assertIsObject($this->objJsonReader->result());
     }
 
@@ -119,7 +119,7 @@ final class JsonStringReaderTest extends TestCase
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
         $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAssociateArray())
-            ->process();
+            ->result();
         $this->assertIsArray($this->objJsonReader->result());
     }
 
@@ -128,7 +128,7 @@ final class JsonStringReaderTest extends TestCase
         $json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
         $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
-            ->process();
+            ->result();
         $this->assertIsObject($this->objJsonReader->result());
     }
 
@@ -138,7 +138,7 @@ final class JsonStringReaderTest extends TestCase
         $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
-            ->process();
+            ->result();
         $this->assertIsArray($this->objJsonReader->result());
     }
 
@@ -149,7 +149,7 @@ final class JsonStringReaderTest extends TestCase
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->setReaderDepth(8898889888898)
             ->useObjectAsArray()
-            ->process();
+            ->result();
         $this->assertEquals(JsonOfficeLang::$maximumNestingExceeded, $this->objJsonReader->getErrorMessage());
     }
 
@@ -159,7 +159,7 @@ final class JsonStringReaderTest extends TestCase
         $this->objJsonReader->setReader($json)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
-            ->process();
+            ->result();
         $this->assertEquals(JsonOfficeLang::$invalidJsonInput, $this->objJsonReader->getErrorMessage());
     }
 }

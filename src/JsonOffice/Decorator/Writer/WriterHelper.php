@@ -86,8 +86,11 @@ class WriterHelper
      */
     public static function checkIfFilenameIsset(string $filename): bool
     {
-        // @phpstan-ignore-next-line
-        return isset($filename) && ! empty($filename) ? true : false;
+        if (! empty($filename)) {
+            // @phpstan-ignore-next-line
+            return isset($filename) && ! empty($filename) ? true : false;
+        }
+        return false;
     }
 
     /**
@@ -98,8 +101,10 @@ class WriterHelper
      */
     public static function checkDirectoryWriteableAndExist(?string $dir): bool
     {
-        // @phpstan-ignore-next-line
-        return is_dir($dir) && file_exists($dir) ? true : false;
+        if (! empty($dir)) {            
+            return is_dir($dir) && file_exists($dir) ? true : false;
+        }
+        return false;
     }
 
     /**

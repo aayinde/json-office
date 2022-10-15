@@ -12,7 +12,7 @@ use Aayinde\JsonOffice\Decorator\Writer\WriterFlag;
  * @copyright 2022 (c) Abdulbasit Aliyu
  *           
  */
-abstract class BaseWriter implements IWriter
+abstract class BaseWriter
 {
 
     /**
@@ -519,25 +519,15 @@ abstract class BaseWriter implements IWriter
         $this->unescapedLineTerminators = WriterFlag::useUnescapedLineTerminators();
         return $this;
     }
+    
 
     /**
-     * Set the saveToFile Value
-     *
-     * @param string $filename
-     */
-    public function saveToFile($filename): self
-    {
-        $this->filename = $filename;
-        return $this;
-    }
-
-    /**
-     * Set the saveToDirectoryPath Value
+     * Set the setSaveDirectoryPath Value
      *
      * @param String $dir
      * @return self
      */
-    public function saveToDirectoryPath(string $dir): self
+    public function setSaveDirectoryPath(string $dir): self
     {
         $this->fileDirectoryPath = $dir;
         return $this;
