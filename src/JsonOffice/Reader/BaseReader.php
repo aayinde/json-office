@@ -12,7 +12,7 @@ use Aayinde\JsonOffice\Decorator\Reader\ReaderFlag;
  * @copyright 2022 (c) Abdulbasit Aliyu
  *           
  */
-abstract class BaseReader implements IReader
+abstract class BaseReader 
 {
 
     /**

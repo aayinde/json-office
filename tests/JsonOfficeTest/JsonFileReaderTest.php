@@ -95,7 +95,7 @@ class JsonFileReaderTest extends TestCase
         $this->jsonFileReader->setReader($json);
         $this->jsonFileReader->useThrowException(true)
         ->setReaderDepth(8888999988898)
-        ->process();
+        ->result();
     }
 
     public function testSetReaderDepth()
@@ -144,7 +144,7 @@ class JsonFileReaderTest extends TestCase
     {
         $this->jsonFileReader->setReader($this->inputFile)
             ->setReturnType(ReaderDecorator::returnTypeAsObject())
-            ->process();
+            ->result();
         $this->assertIsObject($this->jsonFileReader->result());
     }
 
@@ -152,7 +152,7 @@ class JsonFileReaderTest extends TestCase
     {
         $this->jsonFileReader->setReader($this->inputFile)
             ->setReturnType(ReaderDecorator::returnTypeAsAssociateArray())
-            ->process();
+            ->result();
         $this->assertIsArray($this->jsonFileReader->result());
     }
 
@@ -160,7 +160,7 @@ class JsonFileReaderTest extends TestCase
     {
         $this->jsonFileReader->setReader($this->inputFile)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
-            ->process();
+            ->result();
         $this->assertIsObject($this->jsonFileReader->result());
     }
 
@@ -169,7 +169,7 @@ class JsonFileReaderTest extends TestCase
         $this->jsonFileReader->setReader($this->inputFile)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
-            ->process();
+            ->result();
         $this->assertIsArray($this->jsonFileReader->result());
     }
 
@@ -179,7 +179,7 @@ class JsonFileReaderTest extends TestCase
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
             ->setReaderDepth(88888888988)
-            ->process();
+            ->result();
         $this->assertEquals(JsonOfficeLang::$maximumNestingExceeded, $this->jsonFileReader->getErrorMessage()) && $this->assertTrue($this->jsonFileReader->isError());
     }
 
@@ -188,7 +188,7 @@ class JsonFileReaderTest extends TestCase
         $this->jsonFileReader->setReader($this->inputFileThree)
             ->setReturnType(ReaderDecorator::returnTypeAsAuto())
             ->useObjectAsArray()
-            ->process();
+            ->result();
         $this->assertEquals(JsonOfficeLang::$invalidJsonInput, $this->jsonFileReader->getErrorMessage()) && $this->assertTrue($this->jsonFileReader->isError());
     }
 }

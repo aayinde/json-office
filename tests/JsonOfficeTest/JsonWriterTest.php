@@ -134,7 +134,7 @@ class JsonWriterTest extends TestCase
     {
         $this->jsonWriter->setInputDept(0)
             ->setInput($this->input)
-            ->process();
+            ->resultOutput();
         $this->assertEquals(JsonOfficeLang::$minimumNestingExceeded, $this->jsonWriter->getError());
     }
 
@@ -144,7 +144,7 @@ class JsonWriterTest extends TestCase
         $this->jsonWriter->setInputDept(0)
             ->setInput($this->input)
             ->useThrowException(true)
-            ->process();
+            ->resultOutput();
         $this->assertEquals(JsonOfficeLang::$minimumNestingExceeded, $this->jsonWriter->getError());
     }
 
@@ -152,8 +152,7 @@ class JsonWriterTest extends TestCase
     {
         $this->jsonWriter->setInputDept(512)
             ->setInput($this->input)
-            ->saveToFile("")
-            ->process();
+            ->saveToFile("");
         $this->assertEquals(JsonOfficeLang::$filenameNotValid, $this->jsonWriter->getError());
     }
 
@@ -162,9 +161,8 @@ class JsonWriterTest extends TestCase
         $this->expectException(WriterException::class);
         $this->jsonWriter->setInputDept(512)
             ->setInput($this->input)
-            ->saveToFile("")
             ->useThrowException(true)
-            ->process();
+            ->saveToFile("");
         $this->assertEquals(JsonOfficeLang::$filenameNotValid, $this->jsonWriter->getError());
     }
 
@@ -175,9 +173,8 @@ class JsonWriterTest extends TestCase
         $ds = DIRECTORY_SEPARATOR;
         $dir = $fileDirPath . $ds . "jsonfiles" . $ds;
         $this->jsonWriter->setInput($this->input)
-            ->saveToFile("test_array")
-            ->saveToDirectoryPath($dir)
-            ->process();
+            ->setSaveDirectoryPath($dir)
+            ->saveToFile("test_array");
         $this->assertFileExists($dir . $ds . "test_array.json") && $this->assertTrue($this->jsonWriter->getOutput());
     }
 
@@ -187,9 +184,7 @@ class JsonWriterTest extends TestCase
         $fileDirPath = __DIR__;
         $ds = DIRECTORY_SEPARATOR;
         $dir = $fileDirPath . $ds . "jsonfiles" . $ds;
-        $this->jsonWriter->setInput($this->input)
-            ->saveToFile("test_array3")
-            ->process();
+        $this->jsonWriter->setInput($this->input)->saveToFile("test_array2");
         $this->assertFileExists("test_array2.json") && $this->assertTrue($this->jsonWriter->getOutput());
     }
 
@@ -200,10 +195,9 @@ class JsonWriterTest extends TestCase
         $ds = DIRECTORY_SEPARATOR;
         $dir = $fileDirPath . $ds . "jsonfiles" . $ds;
         $this->jsonWriter->setInput($this->input)
-            ->saveToFile("test_array3")
             ->useConvertForceObject()
             ->useToPrettyPrint()
-            ->process();
+            ->saveToFile("test_array3");
         $this->assertFileExists("test_array3.json") && $this->assertTrue($this->jsonWriter->getOutput());
     }
 }

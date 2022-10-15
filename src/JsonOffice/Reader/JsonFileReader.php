@@ -39,7 +39,7 @@ final class JsonFileReader extends BaseReader
      *
      * @return void
      */
-    public function process(): void
+    protected  function process(): void
     {
         $this->render();
     }
@@ -128,6 +128,7 @@ final class JsonFileReader extends BaseReader
      */
     public function result()
     {
+        $this->process();
         return $this->output;
     }
 

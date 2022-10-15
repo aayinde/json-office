@@ -20,6 +20,13 @@ final class JsonArrayWriter extends BaseWriter
 {
 
     /**
+     * The Result of the Input
+     *
+     * @var mixed
+     */
+    private $finalResult = null;
+
+    /**
      * Allows for rapid input configuration.
      *
      * @param mixed $input
@@ -32,11 +39,9 @@ final class JsonArrayWriter extends BaseWriter
     /**
      * Triger the render method for processing the responses
      *
-     * {@inheritdoc}
-     * @see \Aayinde\JsonOffice\Writer\IWriter::process()
      * @return void
      */
-    public function process(): void
+    protected function process(): void
     {
         $this->render();
     }
@@ -50,11 +55,9 @@ final class JsonArrayWriter extends BaseWriter
     /**
      * The final output is returned.
      *
-     * {@inheritdoc}
-     * @see \Aayinde\JsonOffice\Writer\IWriter::result()
      * @return mixed
      */
-    public function result()
+    protected function result()
     {
         return $this->output;
     }
@@ -69,9 +72,10 @@ final class JsonArrayWriter extends BaseWriter
         if ($this->isExceptionThrow()) {
             if (! empty($this->input)) {
                 if (WriterHelper::validateDepth($this->inputDepth)) {
+                    $this->output = json_encode(WriterHelper::fixedInvalidStrings($this->input), $this->convertAmpsToHexValue | $this->convertAposToHexValue | $this->convertForceObject | $this->convertNumericCheck | $this->convertQuoteToHexValue | $this->convertTagsToHexValue | $this->partialOutputOnError | $this->preserveZeroFraction | $this->toPrettyPrint | $this->unescapedLineTerminators | $this->unescapedSlashes | $this->unescapedUnitcode, $this->inputDepth = 512);
+                    $this->finalResult = $this->output;
                     // @phpstan-ignore-next-line
                     if (WriterHelper::checkIfFilenameIsset($this->filename)) {
-                        $this->output = json_encode(WriterHelper::fixedInvalidStrings($this->input), $this->convertAmpsToHexValue | $this->convertAposToHexValue | $this->convertForceObject | $this->convertNumericCheck | $this->convertQuoteToHexValue | $this->convertTagsToHexValue | $this->partialOutputOnError | $this->preserveZeroFraction | $this->toPrettyPrint | $this->unescapedLineTerminators | $this->unescapedSlashes | $this->unescapedUnitcode, $this->inputDepth = 512);
 
                         if (WriterHelper::checkDirectoryWriteableAndExist($this->fileDirectoryPath)) {
                             WriterHelper::createFile($this->fileDirectoryPath . $this->filename . WriterHelper::$fileExtension, $this->output);
@@ -107,9 +111,10 @@ final class JsonArrayWriter extends BaseWriter
             if (! empty($this->input)) {
 
                 if (WriterHelper::validateDepth($this->inputDepth)) {
+                    $this->output = json_encode(WriterHelper::fixedInvalidStrings($this->input), $this->convertAmpsToHexValue | $this->convertAposToHexValue | $this->convertForceObject | $this->convertNumericCheck | $this->convertQuoteToHexValue | $this->convertTagsToHexValue | $this->partialOutputOnError | $this->preserveZeroFraction | $this->toPrettyPrint | $this->unescapedLineTerminators | $this->unescapedSlashes | $this->unescapedUnitcode, $this->inputDepth = 512);
+                    $this->finalResult = $this->output;
                     // @phpstan-ignore-next-line
                     if (WriterHelper::checkIfFilenameIsset($this->filename)) {
-                        $this->output = json_encode(WriterHelper::fixedInvalidStrings($this->input), $this->convertAmpsToHexValue | $this->convertAposToHexValue | $this->convertForceObject | $this->convertNumericCheck | $this->convertQuoteToHexValue | $this->convertTagsToHexValue | $this->partialOutputOnError | $this->preserveZeroFraction | $this->toPrettyPrint | $this->unescapedLineTerminators | $this->unescapedSlashes | $this->unescapedUnitcode, $this->inputDepth = 512);
 
                         if (WriterHelper::checkDirectoryWriteableAndExist($this->fileDirectoryPath)) {
                             WriterHelper::createFile($this->fileDirectoryPath . $this->filename . WriterHelper::$fileExtension, $this->output);
@@ -139,5 +144,29 @@ final class JsonArrayWriter extends BaseWriter
             }
         }
     }
-}
 
+    /**
+     * Save the filename to the provided filename;
+     *
+     * {@inheritdoc}
+     * @see \Aayinde\JsonOffice\Writer\BaseWriter::saveToFile()
+     * @return mixed
+     */
+    public function saveToFile(string $filename)
+    {
+        $this->filename = $filename;
+        $this->process();
+        return $this->result();
+    }
+
+    /**
+     * Result the Process json.
+     *
+     * @return mixed
+     */
+    public function resultOutput()
+    {
+        $this->process();
+        return $this->finalResult;
+    }
+}
