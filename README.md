@@ -8,6 +8,9 @@ A Simple easy to use Json File Reader and Writer with minimal setup.
 
 composer require aayinde/json-office
 
+# Usage
+### JsonArrayWriter
+```
 <?php
 use Aayinde\JsonOffice\Writer\JsonArrayWriter;
 
@@ -16,10 +19,10 @@ $objJsonWriter->setInput($array)
     ->saveToFile("test")
     ->saveToDirectoryPath(PUBLIC_DIR)
     ->process();
+```
 
-
-Input:
-
+### Input:
+```
 $array = [
     'default' => [
         'config' => [
@@ -54,10 +57,10 @@ $array = [
         'logger_instance' => 'default'
     ]
 ];
-
-Output:
-test.json
-
+```
+### Output:
+### test.json
+```
 {
 	"default": {
 		"config": {
@@ -92,11 +95,12 @@ test.json
 		"logger_instance": "default"
 	}
 }
-
-Additional Parameters
+```
+### Additional Parameters
 It also support chainind methods
 
-Input:
+### Input:
+```
 $objJsonWriter = new JsonArrayWriter();
 $objJsonWriter->setInput($array)
     ->useConvertAmpsToHexValue()
@@ -115,10 +119,12 @@ $objJsonWriter->setInput($array)
     ->saveToFile("test1")
     ->saveToDirectoryPath(PUBLIC_DIR)
     ->process();
+```
 
+### Output:
 
-Output:
 test1.json
+```
 {
 	"default": {
 		"config": {
@@ -155,8 +161,10 @@ test1.json
 		"logger_instance": "default"
 	}
 }
+```
 
-Static Instance:
+### Static Instance:
+```
 <?php
 use Aayinde\JsonOffice\JsonWriter;
 
@@ -177,9 +185,11 @@ JsonWriter::getInstanceJsonWriter()->setInput($array)
     ->saveToFile("test3")
     ->saveToDirectoryPath(PUBLIC_DIR)
     ->process();
+```
+### Output:
 
-Output:
 test3.json
+```
 {
 	"default": {
 		"config": {
@@ -216,9 +226,10 @@ test3.json
 		"logger_instance": "default"
 	}
 }
+```
 
-
-Reader Usage:
+# Reader Usage:
+```
 <?php 
 use Aayinde\JsonOffice\Reader\JsonStringReader;
 $objJsonReader = new JsonStringReader();
@@ -261,7 +272,6 @@ object(stdClass)[74]
           public 'report' => int 251
       public 'logger_instance' => string 'default' (length=7)
 
-
-# Usage
+```
 
 
