@@ -74,7 +74,7 @@ final class JsonArrayWriter extends BaseWriter
                 if (WriterHelper::validateDepth($this->inputDepth)) {
                     $this->output = json_encode(WriterHelper::fixedInvalidStrings($this->input), $this->convertAmpsToHexValue | $this->convertAposToHexValue | $this->convertForceObject | $this->convertNumericCheck | $this->convertQuoteToHexValue | $this->convertTagsToHexValue | $this->partialOutputOnError | $this->preserveZeroFraction | $this->toPrettyPrint | $this->unescapedLineTerminators | $this->unescapedSlashes | $this->unescapedUnitcode, $this->inputDepth = 512);
                     $this->finalResult = $this->output;
-                    // @phpstan-ignore-next-line
+                   
                     if (WriterHelper::checkIfFilenameIsset($this->filename)) {
 
                         if (WriterHelper::checkDirectoryWriteableAndExist($this->fileDirectoryPath)) {
@@ -113,7 +113,7 @@ final class JsonArrayWriter extends BaseWriter
                 if (WriterHelper::validateDepth($this->inputDepth)) {
                     $this->output = json_encode(WriterHelper::fixedInvalidStrings($this->input), $this->convertAmpsToHexValue | $this->convertAposToHexValue | $this->convertForceObject | $this->convertNumericCheck | $this->convertQuoteToHexValue | $this->convertTagsToHexValue | $this->partialOutputOnError | $this->preserveZeroFraction | $this->toPrettyPrint | $this->unescapedLineTerminators | $this->unescapedSlashes | $this->unescapedUnitcode, $this->inputDepth = 512);
                     $this->finalResult = $this->output;
-                    // @phpstan-ignore-next-line
+                   
                     if (WriterHelper::checkIfFilenameIsset($this->filename)) {
 
                         if (WriterHelper::checkDirectoryWriteableAndExist($this->fileDirectoryPath)) {

@@ -81,10 +81,10 @@ class WriterHelper
     /**
      * Checks if the filename is set.
      *
-     * @param string $filename
+     * @param string|null $filename
      * @return bool
      */
-    public static function checkIfFilenameIsset(string $filename): bool
+    public static function checkIfFilenameIsset(?string $filename): bool
     {
         if (! empty($filename)) {
             // @phpstan-ignore-next-line
